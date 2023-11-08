@@ -18,8 +18,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Define your routes and other application logic here.
-const userRoutes = require('./routes/user.routes');
-app.use('/api/user',userRoutes)
+const userRoutes = require("./routes/user.routes");
+const { AppError } = require("./utils/error.handling");
+app.use("/api/user", userRoutes);
+
+// Error Handling
+app.use((err, req, res) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ error: err.message });
+  }
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
