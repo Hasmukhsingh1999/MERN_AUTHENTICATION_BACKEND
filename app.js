@@ -23,13 +23,13 @@ const { AppError } = require("./utils/error.handling");
 app.use("/api/user", userRoutes);
 
 // Error Handling
-app.use((err, req, res) => {
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({ error: err.message });
-  }
-  console.error(err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
-});
+// app.use((err, req, res) => {
+//   if (err instanceof AppError) {
+//     return res.status(err.statusCode).json({ error: err.message });
+//   }
+//   console.error(err.stack);
+//   res.status(500).json({ error: "Internal Server Error" });
+// });
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

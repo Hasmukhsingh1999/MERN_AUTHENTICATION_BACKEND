@@ -5,6 +5,11 @@ exports.homepage = async (req, res, next) => {
   res.status(201).json({ message: "Homepage!" });
 };
 
+exports.userAll = async(req,res,next)=>{
+  const userGet = await userModels.find();
+  res.json(userGet)
+}
+
 // user regiser
 exports.userRegister = async (req, res, next) => {
   try {
